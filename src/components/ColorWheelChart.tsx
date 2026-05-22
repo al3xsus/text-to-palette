@@ -1,8 +1,19 @@
 import React, { useState, useMemo } from 'react';
-import getVisualChar from "../lib/getVisualChar"
+import getVisualChar from "../lib/getVisualChar";
+import type { ColorCluster } from '../lib/getWeightedClusters';
 
-const ColorWheelChart = ({ data }) => {
-  const [activeGroupId, setActiveGroupId] = useState(null);
+interface ColorWheelChartProps {
+  data: ColorCluster[];
+}
+
+interface WheelDataItem extends ColorCluster {
+  startAngle: number;
+  angleWidth: number;
+  endAngle: number;
+}
+
+const ColorWheelChart: React.FC<ColorWheelChartProps> = ({ data }) => {
+  const [activeGroupId, setActiveGroupId] = useState<number | null>(null);
 
   // 1. Sort by hue so it maps chronologically around the color wheel
   const sortedData = useMemo(() => {
@@ -15,30 +26,35 @@ const ColorWheelChart = ({ data }) => {
   }, [sortedData]);
 
   const wheelData = useMemo(() => {
-    let currentAngle = 0;
-    return sortedData.map(root => {
+    let accAngle = 0;
+    const items: WheelDataItem[] = [];
+    for (const root of sortedData) {
       const angleWidth = (root.strength / totalStrength) * 360;
-      const startAngle = currentAngle;
-      currentAngle += angleWidth;
-      return { ...root, startAngle, angleWidth, endAngle: currentAngle };
-    });
+      const startAngle = accAngle;
+      const endAngle = accAngle + angleWidth;
+      accAngle = endAngle;
+      items.push({ ...root, startAngle, angleWidth, endAngle });
+    }
+    return items;
   }, [sortedData, totalStrength]);
 
   // 3. Generate the background conic gradient string
   const conicGradientString = useMemo(() => {
-    let currentPercent = 0;
-    const segments = wheelData.map(root => {
+    let accPercent = 0;
+    const segments: string[] = [];
+    for (const root of wheelData) {
       const percentage = (root.strength / totalStrength) * 100;
-      const start = currentPercent;
-      currentPercent += percentage;
+      const start = accPercent;
+      const end = accPercent + percentage;
+      accPercent = end;
       const color = `hsl(${root.representativeHue}, ${root.representativeSat}%, 50%)`;
-      return `${color} ${start}% ${currentPercent}%`;
-    });
+      segments.push(`${color} ${start}% ${end}%`);
+    }
     return `conic-gradient(${segments.join(', ')})`;
   }, [wheelData, totalStrength]);
 
   // Helper function to generate SVG pie-slice paths for hover detection
-  const getCoordinatesForPercent = (percent) => {
+  const getCoordinatesForPercent = (percent: number) => {
     const x = Math.cos(2 * Math.PI * percent);
     const y = Math.sin(2 * Math.PI * percent);
     return [x, y];
@@ -91,7 +107,7 @@ const ColorWheelChart = ({ data }) => {
             pointerEvents: 'none' 
           }}
         >
-          {wheelData.map((slice) => {
+          {wheelData.map((slice: WheelDataItem) => {
             const startPercent = slice.startAngle / 360;
             const endPercent = slice.endAngle / 360;
             

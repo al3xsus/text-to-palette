@@ -1,8 +1,37 @@
-const analyzeText = (text, settings) => {
+export interface AnalysisSettings {
+    includeWhitespace: boolean;
+    includePunctuation: boolean;
+    includeDigits: boolean;
+    includeSymbols: boolean;
+    includeControls: boolean;
+    caseSensitive: boolean;
+}
+
+export interface AnalysisResult {
+    counts: {
+        totalRaw: number;
+        workingCharacters: number;
+        words: number;
+    };
+    ratios: {
+        lexicalDiversity: number;
+    };
+    distribution: {
+        wordLengthAvg: number;
+        wordLengthMax: number;
+        burstiness: number;
+    };
+    mathematical: {
+        entropy: number;
+        charMap: Record<string, number>;
+    };
+}
+
+const analyzeText = (text: string, settings: AnalysisSettings): AnalysisResult | null => {
     if (!text || text.length === 0) return null;
 
     // Initial Split
-    let rawChars = text.split('');
+    const rawChars = text.split('');
 
     const filteredChars = rawChars.filter(char => {
 
@@ -16,7 +45,7 @@ const analyzeText = (text, settings) => {
         const isDigit = /\p{N}/u.test(char);
 
         // any letter
-        const isLetter = /\p{L}/u.test(char);
+        // const isLetter = /\p{L}/u.test(char); // Unused but kept for reference
 
         // any special symbol
         const isSymbol = /\p{S}/u.test(char);
@@ -36,7 +65,7 @@ const analyzeText = (text, settings) => {
     const words = workingText.trim().split(/\s+/).filter(w => w.length > 0);
 
     // Character Frequency Map (from filtered set)
-    const charMap = {};
+    const charMap: Record<string, number> = {};
     filteredChars.forEach(char => {
         const key = settings.caseSensitive ? char : char.toLowerCase();
         charMap[key] = (charMap[key] || 0) + 1;

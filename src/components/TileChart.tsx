@@ -1,7 +1,12 @@
 import React from 'react';
 import Tile from './Tile';
+import type { PaletteItem } from '../lib/getPalette';
 
-const TileChart = ({ data }) => {
+interface TileChartProps {
+    data: PaletteItem[];
+}
+
+const TileChart: React.FC<TileChartProps> = ({ data }) => {
     return (<section style={{ display: "flex", flexFlow: "row wrap", gap: "10px" }}>
         {data.map((item, index) => (
             <div key={`pal-${index}`} style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "1rem" }} title={item.hsl}>
@@ -11,4 +16,4 @@ const TileChart = ({ data }) => {
     </section>)
 }
 
-export default TileChart
+export default TileChart;

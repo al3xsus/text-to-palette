@@ -1,44 +1,50 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import './App.css'
 import PaletteView from './components/PaletteView'
+import Footer from './components/Footer'
 
 function App() {
   const [text, setText] = useState("")
-  const [stage, setStage] = useState("text")
+  const [stage, setStage] = useState<"text" | "palette">("text")
 
-  const changeStage = () => setStage(stage === "text" ? "palette" : "text");
+  const handleGenerate = () => setStage("palette");
+  const handleBack = () => setStage("text");
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div className="container" style={{ minHeight: "100vh", display: 'flex', flexDirection: 'column' }}>
       <header>
         <h1>Text-to-Palette Analyzer</h1>
+        <p>Transform your text into a meaningful color palette based on character distribution and entropy.</p>
       </header>
 
-      <main className="container">
+      <main style={{ flex: 1 }}>
         {stage === "text" ? (
-          <div className="input-group">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <textarea
-              placeholder='Input text here'
+              placeholder='Paste your text here to analyze its color profile...'
               onChange={(e) => setText(e.target.value)}
               value={text}
+              style={{ minHeight: '400px' }}
             />
+            <button
+              disabled={text.trim().length === 0}
+              onClick={handleGenerate}
+              style={{ alignSelf: 'center', fontSize: '1.2rem', padding: '0.8rem 2rem', backgroundColor: 'var(--accent)', color: 'white', border: 'none' }}
+            >
+              Generate Palette
+            </button>
           </div>
         ) : (
-          <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-            <div style={{ flex: 3 }}>
-              <PaletteView text={text} />
-            </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <button onClick={handleBack} style={{ alignSelf: 'flex-start' }}>
+              ← Go Back
+            </button>
+            <PaletteView text={text} />
           </div>
         )}
-
-        <button disabled={text.length === 0} onClick={changeStage}>
-          {stage === "text" ? "Generate Palette" : "Go Back"}
-        </button>
       </main>
 
-      <footer>
-
-      </footer>
+      <Footer />
     </div>
   )
 }
