@@ -3,7 +3,6 @@ import CharacterChart from "./CharacterChart"
 import TileChart from "./TileChart"
 import TopColorsChart from "./TopColorsChart";
 
-import copyToClipboard from "../lib/copyToClipboard"
 import hslToHex from "../lib/hslToHex"
 import getVisualChar from "../lib/getVisualChar"
 import type { PaletteItem } from "../lib/getPalette";

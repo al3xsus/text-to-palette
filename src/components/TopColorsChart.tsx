@@ -2,7 +2,6 @@ import React from 'react';
 import TileChart from "./TileChart"
 import hslToHex from '../lib/hslToHex'
 import getVisualChar from "../lib/getVisualChar"
-import copyToClipboard from "../lib/copyToClipboard"
 import type { PaletteItem } from '../lib/getPalette';
 import CopyButton from './CopyButton';
 

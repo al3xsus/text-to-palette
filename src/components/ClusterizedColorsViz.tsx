@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import PackedGroupCards from "./PackedGroupCards";
 import ColorWheelChart from "./ColorWheelChart";
 
-import copyToClipboard from "../lib/copyToClipboard"
 import hslToHex from "../lib/hslToHex"
 import type { ColorCluster } from "../lib/getWeightedClusters";
 import CopyButton from "./CopyButton";

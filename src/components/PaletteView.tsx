@@ -7,7 +7,7 @@ import getWeightedClusters from '../lib/getWeightedClusters'
 import RawColorsViz from './RawColorsViz';
 import ClusterizedColorsViz from './ClusterizedColorsViz';
 import SettingsBar from './SettingsBar';
-import StatsDashboard from './StatsDashboard';
+// import StatsDashboard from './StatsDashboard';
 
 interface PaletteViewProps {
     text: string;

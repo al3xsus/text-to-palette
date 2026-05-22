@@ -5,10 +5,9 @@ A creative tool that transforms written text into a unique, data-driven color pa
 ## 🎨 How it Works
 
 1.  **Text Analysis**: The app splits the input into individual characters and filters them based on your settings (whitespace, punctuation, etc.).
-2.  **Entropy Calculation**: It computes the Shannon entropy to determine the complexity of the text.
-3.  **Color Mapping**: Each character is mapped to a Hue based on its Unicode codepoint and a Saturation based on its frequency.
-4.  **Clustering**: Similar colors are grouped into clusters using a weighted vector average, identifying the dominant "themes" of the text.
-5.  **Visualization**: Results are presented through various charts:
+2.  **Color Mapping**: Each character is mapped to a Hue based on its Unicode codepoint and a Saturation based on its frequency.
+3.  **Clustering**: Similar colors are grouped into clusters using a weighted vector average, identifying the dominant "themes" of the text.
+4.  **Visualization**: Results are presented through various charts:
     *   **Character Chart**: Frequency of each symbol.
     *   **Tile Chart**: Visual representation of character-color mappings.
     *   **Color Wheel**: A geometric view of color clusters and their relative strength.
