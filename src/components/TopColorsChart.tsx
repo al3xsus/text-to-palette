@@ -4,6 +4,7 @@ import hslToHex from '../lib/hslToHex'
 import getVisualChar from "../lib/getVisualChar"
 import copyToClipboard from "../lib/copyToClipboard"
 import type { PaletteItem } from '../lib/getPalette';
+import CopyButton from './CopyButton';
 
 interface TopColorsChartProps {
     palette: PaletteItem[];
@@ -12,7 +13,7 @@ interface TopColorsChartProps {
 
 const TopColorsChart: React.FC<TopColorsChartProps> = ({ palette, number }) => {
 
-    const handleClick = () => {
+    const prepareData = () => {
         const info = palette.slice(0, number).map(item => {
             return {
                 char: getVisualChar(item.char),
@@ -21,7 +22,7 @@ const TopColorsChart: React.FC<TopColorsChartProps> = ({ palette, number }) => {
                 count: item.count
             }
         })
-        copyToClipboard(JSON.stringify(info))
+        return JSON.stringify(info, null, 2);
     }
 
     const generateLink = () => {
@@ -30,18 +31,24 @@ const TopColorsChart: React.FC<TopColorsChartProps> = ({ palette, number }) => {
     }
 
     return (<section>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
         <h4>Top-{number} colors</h4>
+            </div>
+        
         <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: "center", alignItems: "center" }}>
             <TileChart data={palette.slice(0, number)} />
         </div>
-        <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: "space-between", alignItems: "center", paddingTop: "1rem" }}>
             <div style={{ display: "flex", flexFlow: "column wrap", gap: "1rem", alignItems: "flex-start" }}>
                 <a href={`https://coolors.co/${generateLink()}`} target="_blank" rel="noreferrer">See this palette at COOLORS</a>
                 <a href={`https://coolors.co/visualizer/${generateLink()}`} target="_blank" rel="noreferrer">Visualize  palette at COOLORS</a>
             </div>
-            <button title={`Copy top-${number} colors`} onClick={handleClick}>
-                copy as JSON
-            </button>
+            <CopyButton
+                                                label="Copy as JSON"
+                                                copiedLabel="Copied!"
+                                                title={`Copy top-${number} colors`}
+                                                getText={prepareData}
+                                            />
         </div>
         <hr/>
 

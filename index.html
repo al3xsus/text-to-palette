@@ -2,12 +2,129 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Basic viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>myapp</title>
+
+    <!-- Primary SEO -->
+    <title>Text-to-Palette Generator | Create Color Palettes from Text</title>
+    <meta
+      name="description"
+      content="Text-to-Palette Generator is a free web tool by Alexandr Lavrentyev that converts text into unique color palettes with HSL and HEX values."
+    />
+    <meta
+      name="keywords"
+      content="text to palette, color palette generator, text color generator, HSL palette, HEX colors, developer tool, color tool, React color palette"
+    />
+    <meta name="author" content="Alexandr Lavrentyev" />
+    <meta name="creator" content="Alexandr Lavrentyev" />
+    <meta name="publisher" content="Alexandr Lavrentyev" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://al3xsus.github.io/text-to-palette/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Text-to-Palette Generator" />
+    <meta
+      property="og:description"
+      content="Generate unique HSL and HEX color palettes from text. A free React-based developer tool by Alexandr Lavrentyev."
+    />
+    <meta property="og:url" content="https://al3xsus.github.io/text-to-palette/" />
+    <meta property="og:site_name" content="Text-to-Palette Generator" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- 
+      Add this when you have a preview image.
+      Recommended size: 1200x630.
+    -->
+    <!-- <meta property="og:image" content="https://al3xsus.github.io/text-to-palette/og-image.png" /> -->
+    <!-- <meta property="og:image:alt" content="Text-to-Palette Generator preview" /> -->
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Text-to-Palette Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate unique color palettes from text with HSL and HEX values."
+    />
+    <!-- <meta name="twitter:image" content="https://al3xsus.github.io/text-to-palette/og-image.png" /> -->
+
+    <!-- Project / author links -->
+    <link rel="author" href="https://al3xsus.github.io" />
+    <link rel="me" href="https://github.com/al3xsus/" />
+    <link rel="me" href="https://www.linkedin.com/in/alexandr-lavrentyev/" />
+    <link rel="me" href="mailto:al3xsus@pm.me" />
+
+    <!-- Structured Data: WebApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Text-to-Palette Generator",
+        "url": "https://al3xsus.github.io/text-to-palette/",
+        "description": "A free web tool that converts text into unique color palettes with HSL and HEX values.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "isAccessibleForFree": true,
+        "author": {
+          "@type": "Person",
+          "name": "Alexandr Lavrentyev",
+          "url": "https://al3xsus.github.io",
+          "email": "mailto:al3xsus@pm.me",
+          "sameAs": [
+            "https://github.com/al3xsus/",
+            "https://www.linkedin.com/in/alexandr-lavrentyev/"
+          ],
+          "jobTitle": "Software Developer"
+        },
+        "creator": {
+          "@type": "Person",
+          "name": "Alexandr Lavrentyev"
+        },
+        "codeRepository": "https://github.com/al3xsus/text-to-palette"
+      }
+    </script>
+
+    <!-- Structured Data: SoftwareSourceCode -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Text-to-Palette",
+        "codeRepository": "https://github.com/al3xsus/text-to-palette",
+        "programmingLanguage": ["TypeScript", "React"],
+        "author": {
+          "@type": "Person",
+          "name": "Alexandr Lavrentyev",
+          "url": "https://al3xsus.github.io",
+          "sameAs": [
+            "https://github.com/al3xsus/",
+            "https://www.linkedin.com/in/alexandr-lavrentyev/"
+          ]
+        }
+      }
+    </script>
   </head>
+
   <body>
+    <noscript>
+      Text-to-Palette Generator requires JavaScript to run. It is a free tool
+      for generating color palettes from text.
+    </noscript>
+
     <div id="root"></div>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

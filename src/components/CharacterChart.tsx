@@ -21,6 +21,8 @@ const CharacterChart: React.FC<CharacterChartProps> = ({ data }) => {
         borderBottom: '2px solid #ccc',
         paddingBottom: '10px',
         gap: '4px',
+        maxWidth: '85vw',
+        overflow: "auto"
       }}>
         {data.map((item, index) => {
           // Calculate height as a percentage of the max value

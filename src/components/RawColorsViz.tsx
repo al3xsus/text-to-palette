@@ -7,6 +7,7 @@ import copyToClipboard from "../lib/copyToClipboard"
 import hslToHex from "../lib/hslToHex"
 import getVisualChar from "../lib/getVisualChar"
 import type { PaletteItem } from "../lib/getPalette";
+import CopyButton from "./CopyButton";
 
 interface RawColorsVizProps {
     palette: PaletteItem[];
@@ -25,48 +26,56 @@ const RawColorsViz: React.FC<RawColorsVizProps> = ({ palette }) => {
         }
     }, [palette, sorting]);
 
-    const handleClick = () => {
+    const prepareData = () => {
         const info = palette.map(item => {
             return {
                 char: getVisualChar(item.char),
                 hsl: `${item.h}, ${item.s}%, ${item.l}%`,
-                hex: "#" + hslToHex(item.h, item.s, item.l),
-                count: item.count
-            }
-        })
-        copyToClipboard(JSON.stringify(info))
+                hex: hslToHex(item.h, item.s, item.l),
+                count: item.count,
+            };
+        });
+
+        return JSON.stringify(info, null, 2);
     }
 
     return (
         <article>
-            <h3>
-                Raw colors
-            </h3>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                <h3>
+                    Raw colors
+                </h3>
 
-            <section>
-                <button onClick={() => setSorting("count")} disabled={sorting === "count"}>Sort by Count</button>
-                <button onClick={() => setSorting("alphabet")} disabled={sorting === "alphabet"}>Sort by Alphabet</button>
-            </section>
+                <section style={{ display: "flex", flexDirection: "row", gap: "1rem" }}>
+                    <button onClick={() => setSorting("count")} disabled={sorting === "count"}>Sort by Count</button>
+                    <button onClick={() => setSorting("alphabet")} disabled={sorting === "alphabet"}>Sort by Alphabet</button>
+                </section>
 
-            <h4>Symbols and their counts</h4>
+                <h4>Symbols and their counts</h4>
+            </div>
 
             <CharacterChart data={sortedPalette} />
 
-            <h4>Symbols and their colors</h4>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                <h4>Symbols and their colors</h4>
+            </div>
 
             <TileChart data={sortedPalette} />
 
-            <div style={{display: "flex", justifyContent: "flex-end"}}>
-                <button title="Copy raw colors" onClick={handleClick}>
-                    copy as JSON 
-                </button>
+            <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: "1rem" }}>
+                <CopyButton
+                    label="Copy as JSON"
+                    copiedLabel="Copied!"
+                    title="Copy raw colors"
+                    getText={prepareData}
+                />
             </div>
 
-            <hr/>
+            <hr />
 
-            {sortedPalette.length > 5 && <TopColorsChart palette={sortedPalette} number={5}/>}
+            {sortedPalette.length > 5 && <TopColorsChart palette={sortedPalette} number={5} />}
 
-            {sortedPalette.length > 10 && <TopColorsChart palette={sortedPalette} number={10}/>}
+            {sortedPalette.length > 10 && <TopColorsChart palette={sortedPalette} number={10} />}
 
         </article>
     )

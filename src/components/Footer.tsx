@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
         }}>
             <div style={{ textAlign: 'center' }}>
                 <h3 style={{ margin: '0 0 0.5rem 0' }}>Alexandr Lavrentyev</h3>
-                <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>Software Engineer & Creative Developer</p>
+                <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>Software Engineer / Developer</p>
             </div>
 
             <div style={{
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
                 textAlign: 'center',
                 lineHeight: '1.6'
             }}>
-                Built with React and TypeScript. This tool analyzes text using Shannon entropy and Unicode character distribution to generate unique color profiles.
+                Built with React and TypeScript. This tool transform text into colors.
             </div>
 
             <style>{`

@@ -8,9 +8,13 @@ interface PackedGroupCardsProps {
 
 const PackedGroupCards: React.FC<PackedGroupCardsProps> = ({ data }) => {
   return (
-    <div style={{ paddingTop: '20px', fontFamily: 'system-ui, sans-serif' }}>
-      <h3>Clusters as group of cards</h3>
-      
+    <div>
+
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+        <h3>Clusters as group of cards</h3>
+      </div>
+
+
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
@@ -21,8 +25,8 @@ const PackedGroupCards: React.FC<PackedGroupCardsProps> = ({ data }) => {
           const rootBorder = `hsl(${root.representativeHue}, ${root.representativeSat}%, 40%)`;
 
           return (
-            <div 
-              key={root.id} 
+            <div
+              key={root.id}
               style={{
                 backgroundColor: rootBg,
                 borderTop: `4px solid ${rootBorder}`,
@@ -39,11 +43,11 @@ const PackedGroupCards: React.FC<PackedGroupCardsProps> = ({ data }) => {
                   <strong>Group ID: {root.id}</strong>
                   <div title={`hsl(${root.representativeHue}, ${root.representativeSat}%, 50%)`} style={{
                     backgroundColor: `hsl(${root.representativeHue}, ${root.representativeSat}%, 50%)`,
-                    width: "2rem",
-                    height: "2rem",
+                    width: "3rem",
+                    height: "3rem",
                     borderRadius: "4px",
                     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                }}></div>
+                  }}></div>
                   <span>Str: {root.strength.toLocaleString()}</span>
                 </div>
               </div>

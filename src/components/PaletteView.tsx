@@ -48,9 +48,9 @@ const PaletteView: React.FC<PaletteViewProps> = ({ text }) => {
                      <RawColorsViz palette={palette} />
                      <ClusterizedColorsViz clusters={clusters} />
                 </div>
-                <div style={{ flex: '1 1 300px', position: 'sticky', top: '1rem' }}>
+                {/* <div style={{ flex: '1 1 300px', position: 'sticky', top: '1rem' }}>
                     <StatsDashboard stats={stats} avgHue={avgStats.avgHue} avgSat={avgStats.avgSat} />
-                </div>
+                </div> */}
             </div>
         </div>
     )

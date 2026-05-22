@@ -30,9 +30,7 @@ const Tile: React.FC<TileProps> = ({ bgColor, char }) => {
             fontWeight: "bold",
             fontSize: "1.2rem",
             textShadow: textColor === 'hsl(0 0% 100%)' ? "0 1px 2px rgba(0,0,0,0.5)" : "none"
-        }} title={getVisualChar(char)}>
-            {getVisualChar(char)}
-        </div>
+        }} title={getVisualChar(char)}/>
     )
 }
 

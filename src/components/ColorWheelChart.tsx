@@ -70,11 +70,14 @@ const ColorWheelChart: React.FC<ColorWheelChartProps> = ({ data }) => {
       alignItems: 'center', 
       justifyContent: 'center',
       gap: '40px', 
-      padding: '30px', 
+      paddingTop: '1rem',
+      marginTop: "1rem", 
       fontFamily: 'system-ui, sans-serif',
       backgroundColor: '#fff',
       borderRadius: '12px',
       boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+      maxWidth: '85vw',
+      overflow: "auto"
     }}>
       
       {/* --- THE WHEEL FRAME --- */}

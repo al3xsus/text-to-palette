@@ -11,7 +11,7 @@ function App() {
   const handleBack = () => setStage("text");
 
   return (
-    <div className="container" style={{ minHeight: "100vh", display: 'flex', flexDirection: 'column' }}>
+    <div className="container" style={{ minHeight: "100vh", display: 'flex', flexDirection: 'column', maxWidth: "90vw" }}>
       <header>
         <h1>Text-to-Palette Analyzer</h1>
         <p>Transform your text into a meaningful color palette based on character distribution and entropy.</p>
