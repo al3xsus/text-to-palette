@@ -1,9 +1,14 @@
 import React from 'react';
-import getVisualChar from "../lib/getVisualChar"
+import getVisualChar from "../lib/getVisualChar";
+import type { PaletteItem } from '../lib/getPalette';
 
-const CharacterChart = ({ data }) => {
+interface CharacterChartProps {
+  data: PaletteItem[];
+}
+
+const CharacterChart: React.FC<CharacterChartProps> = ({ data }) => {
   // Find the maximum count to calculate proportional heights
-  const maxCount = Math.max(...data.map(d => d.count));
+  const maxCount = Math.max(...data.map(d => d.count), 1);
 
   return (
     <article>

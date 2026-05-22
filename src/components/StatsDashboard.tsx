@@ -1,7 +1,15 @@
-// components/StatsDashboard.jsx
 import React from 'react';
+import type { AnalysisResult } from '../lib/textAnalysis';
 
-const StatBar = ({ label, value, max, color, description }) => (
+interface StatBarProps {
+    label: string;
+    value: number;
+    max: number;
+    color: string;
+    description: string;
+}
+
+const StatBar: React.FC<StatBarProps> = ({ label, value, max, color, description }) => (
     <div style={{ marginBottom: '15px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
             <span style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>{label}</span>
@@ -19,10 +27,16 @@ const StatBar = ({ label, value, max, color, description }) => (
     </div>
 );
 
-export default function StatsDashboard({ stats, avgHue, avgSat }) {
+interface StatsDashboardProps {
+    stats: AnalysisResult | null;
+    avgHue: number;
+    avgSat: number;
+}
+
+export default function StatsDashboard({ stats, avgHue, avgSat }: StatsDashboardProps) {
     if (!stats) return null;
 
-    const themeColor = `hsl(${avgHue}, ${avgSat}, 50%)`;
+    const themeColor = `hsl(${avgHue}, ${avgSat}%, 50%)`;
 
     return (
         <aside style={{

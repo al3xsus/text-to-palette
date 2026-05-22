@@ -1,5 +1,24 @@
-export default function getWeightedClusters(palette) {
-    const buckets = Array.from({ length: 12 }, () => ({
+import type { PaletteItem } from "./getPalette";
+
+export interface ColorCluster {
+    id: number;
+    representativeHue: number;
+    representativeSat: number;
+    strength: number;
+    density: number;
+    chars: { char: string; color: string }[];
+}
+
+interface Bucket {
+    totalWeight: number;
+    sumX: number;
+    sumY: number;
+    count: number;
+    originalColors: { h: number; s: number; l: number; weight: number; char: string }[];
+}
+
+export default function getWeightedClusters(palette: PaletteItem[]): ColorCluster[] {
+    const buckets: Bucket[] = Array.from({ length: 12 }, () => ({
       totalWeight: 0,
       sumX: 0,
       sumY: 0,
@@ -53,8 +72,7 @@ export default function getWeightedClusters(palette) {
           strength: b.totalWeight,
           density: b.count,
           chars: bucketChars
-        };
+        } as ColorCluster;
       })
-      .filter(Boolean)
+      .filter((c): c is ColorCluster => c !== null);
   }
-  

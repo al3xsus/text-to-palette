@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# Text-to-Palette Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A creative tool that transforms written text into a unique, data-driven color palette. By analyzing the character distribution, Unicode diversity, and mathematical complexity (entropy) of your input, this application generates a visual "fingerprint" of your text.
 
-Currently, two official plugins are available:
+## 🎨 How it Works
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1.  **Text Analysis**: The app splits the input into individual characters and filters them based on your settings (whitespace, punctuation, etc.).
+2.  **Entropy Calculation**: It computes the Shannon entropy to determine the complexity of the text.
+3.  **Color Mapping**: Each character is mapped to a Hue based on its Unicode codepoint and a Saturation based on its frequency.
+4.  **Clustering**: Similar colors are grouped into clusters using a weighted vector average, identifying the dominant "themes" of the text.
+5.  **Visualization**: Results are presented through various charts:
+    *   **Character Chart**: Frequency of each symbol.
+    *   **Tile Chart**: Visual representation of character-color mappings.
+    *   **Color Wheel**: A geometric view of color clusters and their relative strength.
+    *   **Packed Cards**: Grouped characters showing how clusters are formed.
 
-## React Compiler
+## 🚀 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+*   Node.js (v18 or higher)
+*   npm or yarn
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/al3xsus/text-to-palette.git
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Building for Production
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To create an optimized production build:
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+*   **React 19**: Modern UI development.
+*   **TypeScript**: Static typing for robust code.
+*   **Vite**: Fast development and build tool.
+*   **Pure CSS**: Atomic and responsive styling without external libraries.
+*   **ESLint**: Code quality and linting.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 👤 Author
+
+**Alexandr Lavrentyev**
+*   Email: [al3xsus@pm.me](mailto:al3xsus@pm.me)
+*   GitHub: [@al3xsus](https://github.com/al3xsus)
+*   LinkedIn: [Alexandr Lavrentyev](https://www.linkedin.com/in/alexandr-lavrentyev/)
+*   Website: [al3xsus.github.io](https://al3xsus.github.io/)
+
+## 📜 License
+
+This project is open-source and available under the MIT License.

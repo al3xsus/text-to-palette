@@ -1,14 +1,18 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import PackedGroupCards from "./PackedGroupCards";
 import ColorWheelChart from "./ColorWheelChart";
 
 import copyToClipboard from "../lib/copyToClipboard"
 import hslToHex from "../lib/hslToHex"
-import cluster from "cluster";
+import type { ColorCluster } from "../lib/getWeightedClusters";
 
-const ClusterizedColorsViz = ({ clusters }) => {
+interface ClusterizedColorsVizProps {
+    clusters: ColorCluster[];
+}
 
-    const [sorting, setSorting] = useState('strength')
+const ClusterizedColorsViz: React.FC<ClusterizedColorsVizProps> = ({ clusters }) => {
+
+    const [sorting, setSorting] = useState<'strength' | 'density'>('strength')
 
     const sortedClusters = useMemo(() => {
         if (sorting === 'strength') {
@@ -33,7 +37,7 @@ const ClusterizedColorsViz = ({ clusters }) => {
     }
 
     const generateLink = () => {
-        let links = clusters.map(item => hslToHex(item.representativeHue, item.representativeSat, 50)).join("-")
+        const links = clusters.map(item => hslToHex(item.representativeHue, item.representativeSat, 50)).join("-")
         return links
     }
 
@@ -50,7 +54,7 @@ const ClusterizedColorsViz = ({ clusters }) => {
 
             <section style={{ display: "flex", flexFlow: "row wrap", justifyContent: "center", alignItems: "center", gap: "10px" }}>
                 {sortedClusters.map((item, index) => (
-                    <div key={`pal-${index}`} style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "1rem" }} title={item.hsl}>
+                    <div key={`pal-${index}`} style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "1rem" }} title={`${item.representativeHue}, ${item.representativeSat}%, 50%`}>
                         <div title={`strength: ${item.strength}, density: ${item.density}`} style={{
                             backgroundColor: `hsl(${item.representativeHue}, ${item.representativeSat}%, 50%)`,
                             width: "2rem",
@@ -72,8 +76,8 @@ const ClusterizedColorsViz = ({ clusters }) => {
 
             {clusters.length <= 10 ? <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ display: "flex", flexFlow: "column wrap", gap: "1rem", alignItems: "flex-start" }}>
-                    <a href={`https://coolors.co/${generateLink()}`} target="_blank">See this palette at COOLORS</a>
-                    <a href={`https://coolors.co/visualizer/${generateLink()}`} target="_blank">Visualize  palette at COOLORS</a>
+                    <a href={`https://coolors.co/${generateLink()}`} target="_blank" rel="noreferrer">See this palette at COOLORS</a>
+                    <a href={`https://coolors.co/visualizer/${generateLink()}`} target="_blank" rel="noreferrer">Visualize  palette at COOLORS</a>
                 </div>
                 <button title="Copy clusterized colors" onClick={handleClick}>
                     copy as JSON

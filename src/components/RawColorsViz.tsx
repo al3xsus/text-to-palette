@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import CharacterChart from "./CharacterChart"
 import TileChart from "./TileChart"
 import TopColorsChart from "./TopColorsChart";
@@ -6,11 +6,15 @@ import TopColorsChart from "./TopColorsChart";
 import copyToClipboard from "../lib/copyToClipboard"
 import hslToHex from "../lib/hslToHex"
 import getVisualChar from "../lib/getVisualChar"
+import type { PaletteItem } from "../lib/getPalette";
 
+interface RawColorsVizProps {
+    palette: PaletteItem[];
+}
 
-const RawColorsViz = ({ palette }) => {
+const RawColorsViz: React.FC<RawColorsVizProps> = ({ palette }) => {
 
-    const [sorting, setSorting] = useState('alphabet')
+    const [sorting, setSorting] = useState<'alphabet' | 'count'>('alphabet')
 
     const sortedPalette = useMemo(() => {
         if (sorting === 'alphabet') {
@@ -68,4 +72,4 @@ const RawColorsViz = ({ palette }) => {
     )
 }
 
-export default RawColorsViz
+export default RawColorsViz;

@@ -1,7 +1,31 @@
-export const getAnalysisContext = (charMap, settings) => {
+import type { AnalysisSettings } from "./textAnalysis";
+
+export interface AnalysisContext {
+  data: { char: string; count: number; codepoint: number }[];
+  minCodePoint: number;
+  maxCodePoint: number;
+  maxFreq: number;
+  range: number;
+}
+
+export interface PaletteItem {
+  char: string;
+  count: number;
+  h: number;
+  s: number;
+  l: number;
+  hsl: string;
+}
+
+export interface WeightedAverageStats {
+  avgHue: number;
+  avgSat: number;
+}
+
+export const getAnalysisContext = (charMap: Record<string, number>, settings: AnalysisSettings): AnalysisContext | null => {
   const entries = Object.entries(charMap)
 
-  if (charMap.length === 0) return null;
+  if (entries.length === 0) return null;
 
   let minCodePoint = Infinity;
   let maxCodePoint = -Infinity;
@@ -9,7 +33,7 @@ export const getAnalysisContext = (charMap, settings) => {
 
   const data = entries.map(([char, count]) => {
     const preparedChar = settings.caseSensitive ? char : char.toLowerCase();
-    const codepoint = preparedChar.codePointAt(0);
+    const codepoint = preparedChar.codePointAt(0) || 0;
     if (codepoint < minCodePoint) minCodePoint = codepoint;
     if (codepoint > maxCodePoint) maxCodePoint = codepoint;
     if (count > maxFreq) maxFreq = count;
@@ -25,7 +49,7 @@ export const getAnalysisContext = (charMap, settings) => {
   };
 };
 
-export const getWeightedAverageStats = (context) => {
+export const getWeightedAverageStats = (context: AnalysisContext | null): WeightedAverageStats => {
   if (!context) return { avgHue: 0, avgSat: 0 };
   
   let xSum = 0; // For Hue (Circular)
@@ -59,7 +83,7 @@ export const getWeightedAverageStats = (context) => {
   return { avgHue, avgSat };
 };
 
-export const getPalette = (context) => {
+export const getPalette = (context: AnalysisContext | null): PaletteItem[] => {
   if (!context) return [];
 
   return context.data.map(({ char, count, codepoint }) => {

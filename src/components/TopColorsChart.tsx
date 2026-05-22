@@ -1,9 +1,16 @@
+import React from 'react';
 import TileChart from "./TileChart"
 import hslToHex from '../lib/hslToHex'
 import getVisualChar from "../lib/getVisualChar"
 import copyToClipboard from "../lib/copyToClipboard"
+import type { PaletteItem } from '../lib/getPalette';
 
-const TopColorsChart = ({ palette, number }) => {
+interface TopColorsChartProps {
+    palette: PaletteItem[];
+    number: number;
+}
+
+const TopColorsChart: React.FC<TopColorsChartProps> = ({ palette, number }) => {
 
     const handleClick = () => {
         const info = palette.slice(0, number).map(item => {
@@ -18,7 +25,7 @@ const TopColorsChart = ({ palette, number }) => {
     }
 
     const generateLink = () => {
-        let links = palette.slice(0, number).map(item => hslToHex(item.h, item.s, item.l)).join("-")
+        const links = palette.slice(0, number).map(item => hslToHex(item.h, item.s, item.l)).join("-")
         return links
     }
 
@@ -29,8 +36,8 @@ const TopColorsChart = ({ palette, number }) => {
         </div>
         <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: "space-between", alignItems: "center" }}>
             <div style={{ display: "flex", flexFlow: "column wrap", gap: "1rem", alignItems: "flex-start" }}>
-                <a href={`https://coolors.co/${generateLink()}`} target="_blank">See this palette at COOLORS</a>
-                <a href={`https://coolors.co/visualizer/${generateLink()}`} target="_blank">Visualize  palette at COOLORS</a>
+                <a href={`https://coolors.co/${generateLink()}`} target="_blank" rel="noreferrer">See this palette at COOLORS</a>
+                <a href={`https://coolors.co/visualizer/${generateLink()}`} target="_blank" rel="noreferrer">Visualize  palette at COOLORS</a>
             </div>
             <button title={`Copy top-${number} colors`} onClick={handleClick}>
                 copy as JSON
